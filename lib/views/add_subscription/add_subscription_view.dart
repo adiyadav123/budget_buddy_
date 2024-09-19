@@ -332,7 +332,8 @@ class _AddSubScriptionViewState extends State<AddSubScriptionView> {
                         child: Container(
                           width: 200,
                           child: Text(
-                            "₹ ${amountVal.toStringAsFixed(2)}",
+                            "₹ ${formatNumber(amountVal)}",
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: TColor.white,
                                 fontSize: 40,
@@ -378,7 +379,7 @@ class _AddSubScriptionViewState extends State<AddSubScriptionView> {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 100,
             ),
           ],
         ),

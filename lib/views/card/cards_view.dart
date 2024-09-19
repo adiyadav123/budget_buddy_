@@ -197,30 +197,6 @@ class _CardsViewState extends State<CardsView> {
                 const SizedBox(
                   height: 380,
                 ),
-                Text(
-                  "Subscriptions",
-                  style: TextStyle(
-                      color: TColor.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: subArr.map((sObj) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 4, vertical: 8),
-                      child: Image.asset(
-                        sObj["icon"],
-                        width: 40,
-                        height: 40,
-                      ),
-                    );
-                  }).toList(),
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
                 Container(
                   height: 300,
                   decoration: BoxDecoration(

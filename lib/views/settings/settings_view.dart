@@ -292,6 +292,9 @@ class _SettingsViewState extends State<SettingsView> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: media.height * 0.1,
+                  )
                 ],
               ),
             )

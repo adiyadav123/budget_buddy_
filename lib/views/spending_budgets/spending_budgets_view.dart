@@ -182,6 +182,10 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
     var totalBox = await Hive.openBox("totalSpent");
     var totalVal = totalBox.get('totalSpent') ?? 0.0;
 
+    setState(() {
+      totalBudgetSpent = totalVal;
+    });
+
     print(totalVal.runtimeType);
 
     setState(() {
