@@ -217,7 +217,7 @@ class _CardsViewState extends State<CardsView> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(16),
                           onTap: () {
-                            Get.to(() => const AddCardsView(),
+                            Get.to(() =>  AddCardsView(),
                                 transition: Transition.leftToRightWithFade,
                                 duration: const Duration(milliseconds: 500));
                           },
