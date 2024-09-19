@@ -192,6 +192,9 @@ class _CardsViewState extends State<CardsView> {
                 ),
               ),
             ),
+            const SizedBox(
+              height: 380,
+            ),
             Column(
               children: [
                 SafeArea(
@@ -226,65 +229,71 @@ class _CardsViewState extends State<CardsView> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 380,
-                ),
-                Container(
-                  height: 300,
-                  decoration: BoxDecoration(
-                      color: TColor.gray70.withOpacity(0.5),
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(25),
-                          topRight: Radius.circular(25))),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 20),
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(16),
-                          onTap: () {
-                            Get.to(() => AddCardsView(),
-                                transition: Transition.leftToRightWithFade,
-                                duration: const Duration(milliseconds: 500));
-                          },
-                          child: DottedBorder(
-                            dashPattern: const [5, 4],
-                            strokeWidth: 1,
-                            borderType: BorderType.RRect,
-                            radius: const Radius.circular(16),
-                            color: TColor.border.withOpacity(0.1),
-                            child: Container(
-                              height: 50,
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              alignment: Alignment.center,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Add new card",
-                                    style: TextStyle(
-                                        color: TColor.gray30,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const SizedBox(
+                      height: 500,
+                    ),
+                    Container(
+                      height: 300,
+                      decoration: BoxDecoration(
+                          color: TColor.gray70.withOpacity(0.5),
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(25),
+                              topRight: Radius.circular(25))),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20),
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(16),
+                              onTap: () {
+                                Get.to(() => AddCardsView(),
+                                    transition: Transition.leftToRightWithFade,
+                                    duration:
+                                        const Duration(milliseconds: 500));
+                              },
+                              child: DottedBorder(
+                                dashPattern: const [5, 4],
+                                strokeWidth: 1,
+                                borderType: BorderType.RRect,
+                                radius: const Radius.circular(16),
+                                color: TColor.border.withOpacity(0.1),
+                                child: Container(
+                                  height: 50,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16),
                                   ),
-                                  Image.asset(
-                                    "assets/img/add.png",
-                                    width: 12,
-                                    height: 12,
-                                    color: TColor.gray30,
-                                  )
-                                ],
+                                  alignment: Alignment.center,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Add new card",
+                                        style: TextStyle(
+                                            color: TColor.gray30,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      Image.asset(
+                                        "assets/img/add.png",
+                                        width: 12,
+                                        height: 12,
+                                        color: TColor.gray30,
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 )
               ],
             ),
