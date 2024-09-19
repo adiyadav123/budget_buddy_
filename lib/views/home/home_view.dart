@@ -2,8 +2,10 @@ import 'package:budgetbuddy/views/main_tab/main_tab_view.dart';
 import 'package:budgetbuddy/views/spending_budgets/spending_budgets_view.dart';
 import 'package:flutter/material.dart';
 import 'package:budgetbuddy/common/color_extension.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:local_auth/local_auth.dart';
 
 import '../../common_widget/custom_arc_painter.dart';
 import '../../common_widget/segment_button.dart';
@@ -23,30 +25,12 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  late final LocalAuthentication auth;
   bool isSubscription = true;
-  List subArr = [
-    // {"name": "Spotify", "icon": "assets/img/spotify_logo.png", "price": "5.99"},
-    // {
-    //   "name": "Microsoft OneDrive",
-    //   "icon": "assets/img/onedrive_logo.png",
-    //   "price": "29.99"
-    // },
-    // {
-    //   "name": "YouTube Premium",
-    //   "icon": "assets/img/youtube_logo.png",
-    //   "price": "18.99"
-    // },
-    // {
-    //   "name": "NetFlix",
-    //   "icon": "assets/img/netflix_logo.png",
-    //   "price": "15.00"
-    // },
-    // {
-    //   "name": "NetFlix",
-    //   "icon": "assets/img/netflix_logo.png",
-    //   "price": "15.00"
-    // },
-  ];
+  bool authenticated = false;
+  bool isSecurityEnabled = false;
+
+  List subArr = [];
 
   String formatNumber(int num) {
     if (num >= 10000000) {
@@ -90,6 +74,7 @@ class _HomeViewState extends State<HomeView> {
   void getBox() async {
     var box = await Hive.openBox("user");
     var subBox = await Hive.openBox("subscription");
+    var isSec = box.get("security");
     var highestBox = await Hive.openBox("highest");
     var lowestBox = await Hive.openBox("lowest");
     var totalSpentt = await Hive.openBox("totalSpent");
@@ -102,6 +87,7 @@ class _HomeViewState extends State<HomeView> {
 
     setState(() {
       subArr = subBox.get("arr") ?? [];
+      isSecurityEnabled = isSec ?? false;
     });
 
     if (box.get("budget") == null) {
@@ -254,9 +240,24 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
+  void authenticate() async {
+    try {
+      if (authenticated == false) {
+        authenticated = await auth.authenticate(
+            localizedReason: 'Please authenticate to show account balance',
+            options:
+                AuthenticationOptions(stickyAuth: true, biometricOnly: false));
+      }
+    } on PlatformException catch (e) {
+      return print(e);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    auth = LocalAuthentication();
+    authenticate();
     getBox();
   }
 
