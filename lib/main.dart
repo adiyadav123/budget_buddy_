@@ -1,4 +1,5 @@
 import 'package:budgetbuddy/firebase_options.dart';
+import 'package:budgetbuddy/local_notification.dart';
 import 'package:budgetbuddy/views/home/home_view.dart';
 import 'package:budgetbuddy/views/login/config.dart';
 import 'package:budgetbuddy/views/login/welcome.dart';
@@ -11,12 +12,13 @@ import 'package:hive_flutter/adapters.dart';
 import 'common/color_extension.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   var box = await Hive.openBox('user');
   print("getting user");
   print(box.get('user'));
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  WidgetsFlutterBinding.ensureInitialized();
+  await LocalNotification.init();
   runApp(const MyApp());
 }
 

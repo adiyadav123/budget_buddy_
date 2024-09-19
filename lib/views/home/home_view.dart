@@ -16,7 +16,6 @@ import '../settings/settings_view.dart';
 import '../subscription_info/subscription_info_view.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-
 import 'package:intl/intl.dart';
 
 class HomeView extends StatefulWidget {
@@ -260,17 +259,6 @@ class _HomeViewState extends State<HomeView> {
     } on PlatformException catch (e) {
       return print(e);
     }
-  }
-
-    void initializeNotifications() async {
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-
-    final InitializationSettings initializationSettings = InitializationSettings(
-      android: initializationSettingsAndroid,
-    );
-
-  
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:budgetbuddy/local_notification.dart';
 import 'package:budgetbuddy/views/about/about_view.dart';
 import 'package:budgetbuddy/views/login/config.dart';
 import 'package:budgetbuddy/views/login/welcome.dart';
@@ -214,6 +215,12 @@ class _SettingsViewState extends State<SettingsView> {
                             setState(() {
                               isTrue = newVal;
                             });
+
+                            LocalNotification.showSimpleNotification(
+                                body:
+                                    "Daily Tips are now ${newVal ? "enabled" : "disabled"}",
+                                title: "Daily Tips",
+                                payload: "dailyTips");
 
                             setDailyTips(newVal);
                           },
