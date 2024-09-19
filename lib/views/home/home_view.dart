@@ -242,11 +242,18 @@ class _HomeViewState extends State<HomeView> {
 
   void authenticate() async {
     try {
-      if (authenticated == false) {
-        authenticated = await auth.authenticate(
-            localizedReason: 'Please authenticate to show account balance',
-            options:
-                AuthenticationOptions(stickyAuth: true, biometricOnly: false));
+      if (isSecurityEnabled) {
+        if (authenticated == false) {
+          authenticated = await auth.authenticate(
+              localizedReason: 'Please authenticate to show account balance',
+              options: AuthenticationOptions(
+                  stickyAuth: true, biometricOnly: false));
+          setState(() {
+            authenticated = authenticated;
+          });
+        }
+      } else {
+        return;
       }
     } on PlatformException catch (e) {
       return print(e);

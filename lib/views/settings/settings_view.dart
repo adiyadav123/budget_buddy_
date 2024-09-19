@@ -1,6 +1,8 @@
+import 'package:budgetbuddy/views/about/about_view.dart';
 import 'package:budgetbuddy/views/login/config.dart';
 import 'package:budgetbuddy/views/login/welcome.dart';
 import 'package:budgetbuddy/views/main_tab/main_tab_view.dart';
+import 'package:budgetbuddy/views/stacks/stacks_used_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -238,22 +240,36 @@ class _SettingsViewState extends State<SettingsView> {
                       color: TColor.gray60.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    child: const Column(
+                    child: Column(
                       children: [
-                        IconItemRow(
-                          title: "About Us",
-                          icon: "assets/img/app_icon.png",
-                          value: "About",
+                        InkWell(
+                          onTap: () {
+                            Get.to(() => AboutUsView(),
+                                transition: Transition.rightToLeftWithFade,
+                                duration: const Duration(milliseconds: 500));
+                          },
+                          child: IconItemRow(
+                            title: "About Us",
+                            icon: "assets/img/app_icon.png",
+                            value: "About",
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.to(() => StacksUsedView(),
+                                transition: Transition.rightToLeftWithFade,
+                                duration: const Duration(milliseconds: 500));
+                          },
+                          child: IconItemRow(
+                            title: "Stacks Used",
+                            icon: "assets/img/light_theme.png",
+                            value: "Stacks",
+                          ),
                         ),
                         IconItemRow(
-                          title: "Stacks Used",
-                          icon: "assets/img/light_theme.png",
-                          value: "Stacks",
-                        ),
-                        IconItemRow(
-                          title: "App Guide",
+                          title: "Key Features",
                           icon: "assets/img/font.png",
-                          value: "Guide",
+                          value: "Features",
                         ),
                       ],
                     ),
