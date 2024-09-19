@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:budgetbuddy/common/color_extension.dart';
 import 'package:budgetbuddy/common_widget/budgets_row.dart';
 import 'package:budgetbuddy/common_widget/custom_arc_180_painter.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../settings/settings_view.dart';
@@ -22,6 +23,18 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
   double budget = 0.0;
   double totalSpent = 0.0;
   double totalBudgetSpent = 0.0;
+
+  double totalBudgetEntertainment = 0.0;
+  double totalBudgetMedicine = 0.0;
+  double totalBudgetSecurity = 0.0;
+  double totalBudgetFoodDrinks = 0.0;
+  double totalBudgetOthers = 0.0;
+
+  double enterArc = 0.0;
+  double medArc = 0.0;
+  double secArc = 0.0;
+  double foodArc = 0.0;
+  double otherArc = 0.0;
 
   List<String> overspendingAdvices = [
     "Whoa! 😮 You've gone overboard in some areas. Let's scale back a little to avoid breaking the bank! 💸",
@@ -196,9 +209,41 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
       for (var category in budgetArr) {
         double catTotalBudget = double.parse(category['total_budget']);
         double spent = double.parse(category['spend_amount']);
+        String categoryName = category['name'];
 
         totalSpent += spent;
         totalBudget += catTotalBudget;
+
+        // Assign to the corresponding category variable
+        switch (categoryName) {
+          case 'Entertainment':
+            setState(() {
+              enterArc = (catTotalBudget / budget) * 165;
+            });
+            break;
+          case 'Medicine':
+            setState(() {
+              medArc = (catTotalBudget / budget) * 165;
+            });
+            break;
+          case 'Security':
+            setState(() {
+              secArc = (catTotalBudget / budget) * 165;
+            });
+            break;
+          case 'Food & Drinks':
+            setState(() {
+              foodArc = (catTotalBudget / budget) * 165;
+            });
+            break;
+          case 'Others':
+            setState(() {
+              otherArc = (catTotalBudget / budget) * 165;
+            });
+            break;
+          default:
+            break; // Handle any unexpected categories if needed
+        }
 
         if (spent > catTotalBudget * 0.9) {
           categoriesOverspent++;
@@ -232,6 +277,8 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
       categoryBox.put("categories", budgetArr);
       print("categories added");
     }
+
+    print("total arcs: ${enterArc + medArc + secArc + foodArc + otherArc}");
   }
 
   String formatNumber(int num) {
@@ -286,11 +333,12 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
                   child: CustomPaint(
                     painter: CustomArc180Painter(
                       drwArcs: [
-                        ArcValueModel(color: TColor.secondaryG, value: 20),
-                        ArcValueModel(color: TColor.secondary, value: 45),
-                        ArcValueModel(color: TColor.primary10, value: 70),
-                        ArcValueModel(color: Colors.yellow, value: 10),
-                        ArcValueModel(color: Colors.blue, value: 20),
+                        ArcValueModel(
+                            color: TColor.secondaryG, value: enterArc),
+                        ArcValueModel(color: TColor.secondary, value: medArc),
+                        ArcValueModel(color: TColor.primary10, value: secArc),
+                        ArcValueModel(color: Colors.yellow, value: foodArc),
+                        ArcValueModel(color: Colors.blue, value: otherArc),
                       ],
                       end: 50,
                       width: 12,

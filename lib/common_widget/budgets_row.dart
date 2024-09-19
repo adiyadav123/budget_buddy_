@@ -73,7 +73,7 @@ class BudgetsRow extends StatelessWidget {
                               fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          "₹ ${bObj['left_amount']} left to spend",
+                          "₹ ${(bObj['left_amount'])} left to spend",
                           style: TextStyle(
                               color: TColor.gray30,
                               fontSize: 12,

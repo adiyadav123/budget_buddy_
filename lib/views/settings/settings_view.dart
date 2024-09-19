@@ -302,7 +302,7 @@ class _SettingsViewState extends State<SettingsView> {
   }
 
   _redirectToGithub() {
-    var url = Uri.parse("https://github.com/adiyadav123/budgetbuddy");
+    var url = Uri.parse("https://github.com/adiyadav123/budget_buddy_");
     launchUrl(url);
   }
 }

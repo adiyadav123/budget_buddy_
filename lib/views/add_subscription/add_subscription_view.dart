@@ -21,7 +21,6 @@ class _AddSubScriptionViewState extends State<AddSubScriptionView> {
   TextEditingController txtName = TextEditingController();
   int _current = 0;
 
-  
   String formatNumber(double num) {
     if (num >= 10000000) {
       return '${(num / 10000000).toStringAsFixed(1)} Cr';
@@ -453,8 +452,8 @@ class _AddSubScriptionViewState extends State<AddSubScriptionView> {
           spendAmount += am;
           leftAmount -= am;
 
-          category["spend_amount"] = spendAmount.toString();
-          category["left_amount"] = leftAmount.toString();
+          category["spend_amount"] = spendAmount.toStringAsFixed(1);
+          category["left_amount"] = leftAmount.toStringAsFixed(1);
         }
       }
 
