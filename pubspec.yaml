@@ -56,6 +56,9 @@ dependencies:
   flutter_credit_card: ^4.0.1
   flutter_multi_formatter: ^2.13.0
   flutter_local_notifications: ^17.2.2
+  workmanager: ^0.5.2
+  flutter_timezone: ^1.0.8
+  rxdart: ^0.28.0
 
 dev_dependencies:
   flutter_test:
