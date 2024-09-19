@@ -47,6 +47,8 @@ class _CardsViewState extends State<CardsView> {
 
   Widget buildSwiper() {
     return Swiper(
+      autoplay: true,
+      autoplayDelay: 3000,
       itemCount: carArr.length,
       customLayoutOption: CustomLayoutOption(startIndex: -1, stateCount: 3)
         ..addRotate([-45.0 / 180, 0.0, 45.0 / 180])
@@ -90,7 +92,7 @@ class _CardsViewState extends State<CardsView> {
                   height: 8,
                 ),
                 Text(
-                  "Virtual Card",
+                  cObj["type"] ?? "Mastercard",
                   style: TextStyle(
                       color: TColor.white,
                       fontSize: 16,

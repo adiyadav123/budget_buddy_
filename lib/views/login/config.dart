@@ -62,7 +62,7 @@ class _ConfigPageState extends State<ConfigPage> {
                       width: media.width * 0.5,
                       fit: BoxFit.contain,
                     ),
-                    const SizedBox(height: 200),
+                    const SizedBox(height: 180),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -188,7 +188,7 @@ class _ConfigPageState extends State<ConfigPage> {
                       ],
                     ),
                     SizedBox(
-                      height: media.height * 0.3,
+                      height: media.height * 0.15,
                     ),
                     PrimaryButton(
                         fontSize: 15,
@@ -198,7 +198,7 @@ class _ConfigPageState extends State<ConfigPage> {
                           _getStarted();
                         }),
                     const SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
                   ],
                 ),

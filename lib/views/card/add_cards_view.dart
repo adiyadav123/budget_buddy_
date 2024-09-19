@@ -1,6 +1,4 @@
 import 'package:budgetbuddy/common_widget/primary_button.dart';
-import 'package:budgetbuddy/views/login/config.dart';
-import 'package:budgetbuddy/views/login/welcome.dart';
 import 'package:budgetbuddy/views/main_tab/main_tab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,8 +6,7 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import '../../common/color_extension.dart';
-import '../../common_widget/icon_item_row.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
 class AddCardsView extends StatefulWidget {
   const AddCardsView({super.key});
@@ -241,7 +238,8 @@ class _AddCardsViewState extends State<AddCardsView> {
                         validTill = value;
                       });
                     },
-                    keyboardType: TextInputType.name,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [CreditCardExpirationDateFormatter()],
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: "08 / 27",
@@ -288,6 +286,7 @@ class _AddCardsViewState extends State<AddCardsView> {
                     },
                     maxLength: 3,
                     keyboardType: TextInputType.number,
+                    inputFormatters: [CreditCardCvcInputFormatter()],
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: "***",
