@@ -139,6 +139,16 @@ class _ConfigPageState extends State<ConfigPage> {
                       ],
                     ),
                     const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                        "Please don't include any commas or special characters",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: TColor.gray50,
+                          fontSize: 12,
+                        )),
+                    const SizedBox(
                       height: 15,
                     ),
                     Column(
@@ -214,15 +224,15 @@ class _ConfigPageState extends State<ConfigPage> {
         {
           "name": "Entertainment",
           "icon": "assets/img/netflix_logo.png",
-          "total_budget": "${double.parse(budget) * 0.08}",
+          "total_budget": (double.parse(budget) * 0.08).toStringAsFixed(1),
           "spend_amount": "0",
-          "left_amount": "${double.parse(budget) * 0.08}",
+          "left_amount": (double.parse(budget) * 0.08).toStringAsFixed(1),
           "color": TColor.secondaryG.value
         },
         {
           "name": "Medicine",
           "icon": "assets/img/medicine.png",
-          "total_budget": "${double.parse(budget) * 0.3}",
+          "total_budget": (double.parse(budget) * 0.3).toStringAsFixed(1),
           "spend_amount": "0",
           "left_amount": "${double.parse(budget) * 0.3}",
           "color": TColor.secondary50.value
@@ -230,25 +240,25 @@ class _ConfigPageState extends State<ConfigPage> {
         {
           "name": "Security",
           "icon": "assets/img/camera.png",
-          "total_budget": "${double.parse(budget) * 0.12}",
+          "total_budget": (double.parse(budget) * 0.12).toStringAsFixed(1),
           "spend_amount": "0",
-          "left_amount": "${double.parse(budget) * 0.12}",
+          "left_amount": (double.parse(budget) * 0.12).toStringAsFixed(1),
           "color": TColor.primary10.value
         },
         {
           "name": "Food & Drinks",
           "icon": "assets/img/housing.png",
-          "total_budget": "${double.parse(budget) * 0.10}",
+          "total_budget": (double.parse(budget) * 0.10).toStringAsFixed(1),
           "spend_amount": "0",
-          "left_amount": "${double.parse(budget) * 0.10}",
+          "left_amount": (double.parse(budget) * 0.10).toStringAsFixed(1),
           "color": Colors.yellow.value
         },
         {
           "name": "Others",
           "icon": "assets/img/store.png",
-          "total_budget": "${double.parse(budget) * 0.4}",
+          "total_budget": (double.parse(budget) * 0.4).toStringAsFixed(1),
           "spend_amount": "0",
-          "left_amount": "${double.parse(budget) * 0.4}",
+          "left_amount": (double.parse(budget) * 0.4).toStringAsFixed(1),
           "color": Colors.blue.value
         }
       ];

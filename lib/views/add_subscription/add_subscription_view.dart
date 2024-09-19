@@ -21,6 +21,19 @@ class _AddSubScriptionViewState extends State<AddSubScriptionView> {
   TextEditingController txtName = TextEditingController();
   int _current = 0;
 
+  
+  String formatNumber(double num) {
+    if (num >= 10000000) {
+      return '${(num / 10000000).toStringAsFixed(1)} Cr';
+    } else if (num >= 100000) {
+      return '${(num / 100000).toStringAsFixed(1)} L';
+    } else if (num >= 1000) {
+      return '${(num / 1000).toStringAsFixed(1)} K';
+    } else {
+      return num.toString();
+    }
+  }
+
   List subArrr = [
     {"name": "Entertainment", "icon": "assets/img/netflix_logo.png"},
     {"name": "Medicine", "icon": "assets/img/medicine.png"},

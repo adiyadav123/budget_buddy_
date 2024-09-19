@@ -8,10 +8,24 @@ class BudgetsRow extends StatelessWidget {
 
   const BudgetsRow({super.key, required this.bObj, required this.onPressed});
 
+  String formatNumber(int num) {
+    if (num >= 10000000) {
+      return '${(num / 10000000).toStringAsFixed(1)} Cr';
+    } else if (num >= 100000) {
+      return '${(num / 100000).toStringAsFixed(1)} L';
+    } else if (num >= 1000) {
+      return '${(num / 1000).toStringAsFixed(1)} K';
+    } else {
+      return num.toString();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var proVal = (double.tryParse(bObj["left_amount"]) ?? 0) /
         (double.tryParse(bObj["total_budget"]) ?? 0);
+
+    print("spend: ${bObj['spend_amount']}");
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
@@ -59,7 +73,7 @@ class BudgetsRow extends StatelessWidget {
                               fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          "₹ ${bObj["left_amount"]} left to spend",
+                          "₹ ${bObj['left_amount']} left to spend",
                           style: TextStyle(
                               color: TColor.gray30,
                               fontSize: 12,
@@ -73,17 +87,19 @@ class BudgetsRow extends StatelessWidget {
                   ),
                   Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          "₹ ${bObj["spend_amount"]}",
+                          "₹ ${bObj['spend_amount']}",
+                          textAlign: TextAlign.right,
                           style: TextStyle(
                               color: TColor.white,
                               fontSize: 14,
                               fontWeight: FontWeight.w600),
                         ),
                         Text(
-                          "of ₹ ${bObj["total_budget"]}",
+                          "of ₹ ${bObj['total_budget']}",
+                          textAlign: TextAlign.right,
                           style: TextStyle(
                               color: TColor.gray30,
                               fontSize: 12,
