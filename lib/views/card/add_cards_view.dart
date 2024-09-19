@@ -192,7 +192,11 @@ class _AddCardsViewState extends State<AddCardsView> {
                       });
                     },
                     keyboardType: TextInputType.number,
-                    maxLength: 16,
+                    maxLength: 19,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      CardNumberFormatter()
+                    ],
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: "**** **** **** 7856",
@@ -353,7 +357,6 @@ class _AddCardsViewState extends State<AddCardsView> {
     print("submitting card");
   }
 }
-
 
 class CardNumberFormatter extends TextInputFormatter {
   @override

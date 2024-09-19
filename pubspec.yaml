@@ -54,6 +54,7 @@ dependencies:
   flutter_screen_lock: ^9.0.4
   local_auth: ^2.1.8
   flutter_credit_card: ^4.0.1
+  flutter_multi_formatter: ^2.13.0
 
 dev_dependencies:
   flutter_test:
