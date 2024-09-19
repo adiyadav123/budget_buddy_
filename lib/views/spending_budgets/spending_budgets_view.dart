@@ -157,7 +157,7 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
       "color": TColor.primary10.value
     },
     {
-      "name": "Others",
+      "name": "Food & Drinks",
       "icon": "assets/img/housing.png",
       "total_budget": "10000",
       "spend_amount": "5000",
@@ -165,7 +165,7 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
       "color": Colors.yellow.value
     },
     {
-      "name": "Food & Drinks",
+      "name": "Others",
       "icon": "assets/img/store.png",
       "total_budget": "60000",
       "spend_amount": "0",
@@ -180,11 +180,9 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
     var userBudget = userBox.get("budget");
     double d_budget = double.tryParse(userBudget) ?? 0.0;
     var totalBox = await Hive.openBox("totalSpent");
-    var totalVal = totalBox.get('totalSpent') ?? 0;
+    var totalVal = totalBox.get('totalSpent') ?? 0.0;
 
-    setState(() {
-      totalBudgetSpent = totalVal;
-    });
+    print(totalVal.runtimeType);
 
     setState(() {
       budget = d_budget;
@@ -273,6 +271,9 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
         _prediction = advice;
       });
     } else {
+      setState(() {
+        budgetArr = budgetArr;
+      });
       print("no categories added");
       categoryBox.put("categories", budgetArr);
       print("categories added");
