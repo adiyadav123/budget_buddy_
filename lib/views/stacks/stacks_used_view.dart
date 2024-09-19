@@ -107,7 +107,7 @@ class _StacksUsedViewState extends State<StacksUsedView> {
                           title: "Dart",
                           value: "Flutter",
                           about:
-                              "Used for building the cross-platform mobile application with a rich user interface.",
+                              "Programming language used to develop the app’s logic and UI components.",
                           icon: "assets/img/dart.png",
                         ),
                       ],
