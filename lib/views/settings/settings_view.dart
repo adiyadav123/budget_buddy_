@@ -1,5 +1,6 @@
 import 'package:budgetbuddy/local_notification.dart';
 import 'package:budgetbuddy/views/about/about_view.dart';
+import 'package:budgetbuddy/views/key_features/key_features.dart';
 import 'package:budgetbuddy/views/login/config.dart';
 import 'package:budgetbuddy/views/login/welcome.dart';
 import 'package:budgetbuddy/views/main_tab/main_tab_view.dart';
@@ -273,10 +274,17 @@ class _SettingsViewState extends State<SettingsView> {
                             value: "Stacks",
                           ),
                         ),
-                        IconItemRow(
-                          title: "Key Features",
-                          icon: "assets/img/font.png",
-                          value: "Features",
+                        InkWell(
+                          onTap: () => {
+                            Get.to(() => KeyFeaturesView(),
+                                transition: Transition.rightToLeftWithFade,
+                                duration: const Duration(milliseconds: 500))
+                          },
+                          child: IconItemRow(
+                            title: "Key Features",
+                            icon: "assets/img/font.png",
+                            value: "Features",
+                          ),
                         ),
                       ],
                     ),
