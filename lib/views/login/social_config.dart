@@ -136,6 +136,16 @@ class _SocialConfigPageState extends State<SocialConfigPage> {
                         )
                       ],
                     ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                        "Please don't include any commas or special characters",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: TColor.gray50,
+                          fontSize: 12,
+                        )),
                     SizedBox(
                       height: media.height * 0.4,
                     ),

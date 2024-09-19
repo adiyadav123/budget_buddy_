@@ -1,11 +1,13 @@
 import 'dart:math';
 
+import 'package:budgetbuddy/views/card/add_cards_view.dart';
 import 'package:calendar_agenda/calendar_agenda.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:budgetbuddy/common/color_extension.dart';
 import 'package:budgetbuddy/views/settings/settings_view.dart';
+import 'package:get/get.dart';
 
 class CardsView extends StatefulWidget {
   const CardsView({super.key});
@@ -15,20 +17,7 @@ class CardsView extends StatefulWidget {
 }
 
 class _CardsViewState extends State<CardsView> {
-  List subArr = [
-    {"name": "Spotify", "icon": "assets/img/spotify_logo.png", "price": "5.99"},
-    {
-      "name": "YouTube Premium",
-      "icon": "assets/img/youtube_logo.png",
-      "price": "18.99"
-    },
-    {
-      "name": "Microsoft OneDrive",
-      "icon": "assets/img/onedrive_logo.png",
-      "price": "29.99"
-    },
-    {"name": "NetFlix", "icon": "assets/img/netflix_logo.png", "price": "15.00"}
-  ];
+  bool isCards = true;
 
   List carArr = [
     {
@@ -158,7 +147,23 @@ class _CardsViewState extends State<CardsView> {
             Container(
               width: double.infinity,
               height: 600,
-              child: buildSwiper(),
+              child: Container(
+                width: double.infinity,
+                height: 600,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    isCards
+                        ? buildSwiper()
+                        : Text("No cards added yet.",
+                            style: TextStyle(
+                                color: TColor.gray30,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600)),
+                  ],
+                ),
+              ),
             ),
             Column(
               children: [
@@ -211,7 +216,11 @@ class _CardsViewState extends State<CardsView> {
                             horizontal: 20, vertical: 20),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(16),
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(() => const AddCardsView(),
+                                transition: Transition.leftToRightWithFade,
+                                duration: const Duration(milliseconds: 500));
+                          },
                           child: DottedBorder(
                             dashPattern: const [5, 4],
                             strokeWidth: 1,
