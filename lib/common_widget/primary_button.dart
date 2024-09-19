@@ -44,7 +44,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
         child: Container(
-          constraints:const BoxConstraints(maxWidth: 648),
+          constraints: const BoxConstraints(maxWidth: 648),
           height: 55,
           decoration: BoxDecoration(
             image: const DecorationImage(

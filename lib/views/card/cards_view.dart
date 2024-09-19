@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:budgetbuddy/common/color_extension.dart';
 import 'package:budgetbuddy/views/settings/settings_view.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class CardsView extends StatefulWidget {
   const CardsView({super.key});
@@ -99,7 +100,7 @@ class _CardsViewState extends State<CardsView> {
                   height: 115,
                 ),
                 Text(
-                  cObj["name"] ?? "Code For Any",
+                  cObj["name"] ?? "Aditya",
                   style: TextStyle(
                       color: TColor.gray20,
                       fontSize: 12,
@@ -133,6 +134,30 @@ class _CardsViewState extends State<CardsView> {
       autoplayDisableOnInteraction: false,
       axisDirection: AxisDirection.right,
     );
+  }
+
+  void checkData() async {
+    var userBox = await Hive.openBox('user');
+    var cards = userBox.get('cards');
+
+    if (cards == null) {
+      setState(() {
+        isCards = false;
+      });
+    } else {
+      setState(() {
+        isCards = true;
+        carArr = cards;
+      });
+    }
+
+    print(cards);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkData();
   }
 
   @override
@@ -217,7 +242,7 @@ class _CardsViewState extends State<CardsView> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(16),
                           onTap: () {
-                            Get.to(() =>  AddCardsView(),
+                            Get.to(() => AddCardsView(),
                                 transition: Transition.leftToRightWithFade,
                                 duration: const Duration(milliseconds: 500));
                           },
