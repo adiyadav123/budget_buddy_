@@ -58,7 +58,14 @@ class _SettingsViewState extends State<SettingsView> {
 
     if (status.isDenied || status.isPermanentlyDenied) {
       // Show custom dialog to explain the importance of notifications
-      await Permission.notification.request();
+      await Permission.notification.request().then((value) {
+        if (value.isGranted) {
+          NotificationService().showNotification(
+              id: 0,
+              title: "Daily Tips",
+              body: "Check out the daily tips for you");
+        }
+      });
     } else if (status.isGranted) {
       NotificationService().showNotification(
           id: 0, title: "Daily Tips", body: "Check out the daily tips for you");
@@ -233,7 +240,9 @@ class _SettingsViewState extends State<SettingsView> {
                               isTrue = newVal;
                             });
 
-                            if (newVal) {}
+                            if (newVal) {
+                              checkNotificationPermission();
+                            }
 
                             setDailyTips(newVal);
                           },

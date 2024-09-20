@@ -251,6 +251,7 @@ class _HomeViewState extends State<HomeView> {
     var usrBox = await Hive.openBox("user");
     var at = usrBox.get("authenticated");
     var isSec = usrBox.get("security") ?? false;
+    print("Is Security: $isSec");
     if (isSec != null) {
       setState(() {
         isSecurityEnabled = isSec;
