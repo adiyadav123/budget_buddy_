@@ -181,25 +181,25 @@ class _SocialConfigPageState extends State<SocialConfigPage> {
         {
           "name": "Entertainment",
           "icon": "assets/img/netflix_logo.png",
-          "total_budget": (double.parse(budget) * 0.08).toStringAsFixed(1),
+          "total_budget": (double.parse(budget) * 0.05).toStringAsFixed(1),
           "spend_amount": "0",
-          "left_amount": (double.parse(budget) * 0.08).toStringAsFixed(1),
+          "left_amount": (double.parse(budget) * 0.05).toStringAsFixed(1),
           "color": TColor.secondaryG.value
         },
         {
-          "name": "Medicine",
+          "name": "Savings",
           "icon": "assets/img/medicine.png",
-          "total_budget": (double.parse(budget) * 0.3).toStringAsFixed(1),
+          "total_budget": (double.parse(budget) * 0.2).toStringAsFixed(1),
           "spend_amount": "0",
-          "left_amount": "${double.parse(budget) * 0.3}",
+          "left_amount": "${double.parse(budget) * 0.2}",
           "color": TColor.secondary50.value
         },
         {
           "name": "Security",
           "icon": "assets/img/camera.png",
-          "total_budget": (double.parse(budget) * 0.12).toStringAsFixed(1),
+          "total_budget": (double.parse(budget) * 0.1).toStringAsFixed(1),
           "spend_amount": "0",
-          "left_amount": (double.parse(budget) * 0.12).toStringAsFixed(1),
+          "left_amount": (double.parse(budget) * 0.1).toStringAsFixed(1),
           "color": TColor.primary10.value
         },
         {
@@ -211,11 +211,19 @@ class _SocialConfigPageState extends State<SocialConfigPage> {
           "color": Colors.yellow.value
         },
         {
+          "name": "Groceries",
+          "icon": "assets/img/store.png",
+          "total_budget": (double.parse(budget) * 0.1).toStringAsFixed(1),
+          "spend_amount": "0",
+          "left_amount": (double.parse(budget) * 0.1).toStringAsFixed(1),
+          "color": Colors.green.value,
+        },
+        {
           "name": "Others",
           "icon": "assets/img/store.png",
-          "total_budget": (double.parse(budget) * 0.4).toStringAsFixed(1),
+          "total_budget": (double.parse(budget) * 0.45).toStringAsFixed(1),
           "spend_amount": "0",
-          "left_amount": (double.parse(budget) * 0.4).toStringAsFixed(1),
+          "left_amount": (double.parse(budget) * 0.45).toStringAsFixed(1),
           "color": Colors.blue.value
         }
       ];
