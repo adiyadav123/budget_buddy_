@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Check for notification permission
-    notificationService.checkNotificationPermission(context);
+    notificationService.checkNotificationPermission();
 
     return GetMaterialApp(
       title: 'Budget Buddy',

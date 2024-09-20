@@ -31,6 +31,12 @@ class NotificationService {
     }
   }
 
+  Future<void> checkNotificationPermission() async {
+    if (await Permission.notification.isDenied) {
+      await Permission.notification.request();
+    }
+  }
+
   NotificationDetails notificationDetails() {
     return const NotificationDetails(
         android: AndroidNotificationDetails('channelId', 'channelName',
