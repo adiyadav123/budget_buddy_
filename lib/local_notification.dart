@@ -8,63 +8,71 @@ class NotificationService {
       FlutterLocalNotificationsPlugin();
 
   Future<void> initNotification() async {
-    await checkAlarmPermission();
     AndroidInitializationSettings initializationSettingsAndroid =
         const AndroidInitializationSettings('@mipmap/ic_launcher');
+
     var initializationSettingsIOS = DarwinInitializationSettings(
         requestAlertPermission: true,
         requestBadgePermission: true,
         requestSoundPermission: true,
         onDidReceiveLocalNotification:
             (int id, String? title, String? body, String? payload) async {});
+
     var initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-    await notificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse:
-            (NotificationResponse notificationResponse) async {});
+
+    await notificationsPlugin.initialize(initializationSettings);
     scheduleDailyNotification();
   }
 
-  Future<void> checkAlarmPermission() async {
-    if (await Permission.notification.isDenied) {
-      await Permission.notification.request();
-    }
-  }
-
-  Future<void> checkNotificationPermission() async {
-    if (await Permission.notification.isDenied) {
-      await Permission.notification.request();
-    }
-  }
-
-  NotificationDetails notificationDetails() {
-    return const NotificationDetails(
-        android: AndroidNotificationDetails('channelId', 'channelName',
-            importance: Importance.max),
-        iOS: DarwinNotificationDetails());
-  }
-
   Future<void> scheduleDailyNotification() async {
-    tz.initializeTimeZones();
-    var timeZone = tz.local;
-    var scheduledTime = tz.TZDateTime.now(timeZone)
-        .add(Duration(days: 1))
-        .copyWith(hour: 14, minute: 40, second: 0);
+    final tz.TZDateTime scheduledTime = tz.TZDateTime.now(tz.local)
+        .add(Duration(seconds: 5)); // Test with a short delay
+
     await notificationsPlugin.zonedSchedule(
-        0,
-        'Daily Reminder',
-        'This is your daily notification.',
-        tz.TZDateTime.from(scheduledTime, timeZone),
-        await notificationDetails(),
-        androidScheduleMode: AndroidScheduleMode.exact,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        matchDateTimeComponents: DateTimeComponents.time);
+      0,
+      'Test Notification Title',
+      'This is a test notification body.',
+      scheduledTime,
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'channelId',
+          'channelName',
+          channelDescription: 'Your channel description',
+          importance: Importance.max,
+          priority: Priority.high,
+        ),
+      ),
+      androidScheduleMode: AndroidScheduleMode.exact,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+    );
   }
 
   Future<void> showNotification(
-      {int id = 0, String? title, String? body, String? payload}) async {
-    return notificationsPlugin.show(
-        id, title, body, await notificationDetails());
+      {int id = 0, String? title, String? body}) async {
+    await notificationsPlugin.show(
+      id,
+      title ?? 'Default Title',
+      body ?? 'Default body',
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'channelId',
+          'channelName',
+          channelDescription: 'Your channel description',
+          importance: Importance.max,
+          priority: Priority.high,
+        ),
+      ),
+    );
+  }
+
+  Future<void> checkNotificationPermission() async {
+    final status = await Permission.notification.request();
+    if (status.isGranted) {
+      // Permission granted, you can proceed
+    } else if (status.isDenied) {
+      // Permission denied
+    }
   }
 }
