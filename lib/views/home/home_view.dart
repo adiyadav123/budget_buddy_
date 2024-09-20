@@ -337,7 +337,6 @@ class _HomeViewState extends State<HomeView> {
     auth = LocalAuthentication();
     authenticate();
     checkNotificationPermission();
-    showRandomTip();
   }
 
   @override
