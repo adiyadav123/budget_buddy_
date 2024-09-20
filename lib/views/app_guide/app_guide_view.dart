@@ -51,7 +51,7 @@ class _AppGuideViewState extends State<AppGuideView> {
                 ],
               ),
               Image.asset(
-                "assets/img/app_guide.png",
+                "assets/img/guide.png",
               ),
               const SizedBox(
                 height: 10,
