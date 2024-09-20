@@ -1,5 +1,6 @@
 import 'package:budgetbuddy/local_notification.dart';
 import 'package:budgetbuddy/views/about/about_view.dart';
+import 'package:budgetbuddy/views/app_guide/app_guide_view.dart';
 import 'package:budgetbuddy/views/key_features/key_features.dart';
 import 'package:budgetbuddy/views/login/config.dart';
 import 'package:budgetbuddy/views/login/welcome.dart';
@@ -309,13 +310,13 @@ class _SettingsViewState extends State<SettingsView> {
                         ),
                         InkWell(
                           onTap: () => {
-                            Get.to(() => KeyFeaturesView(),
+                            Get.to(() => AppGuideView(),
                                 transition: Transition.rightToLeftWithFade,
                                 duration: const Duration(milliseconds: 500))
                           },
                           child: IconItemRow(
                             title: "App Guide",
-                            icon: "assets/img/font.png",
+                            icon: "assets/img/guide.png",
                             value: "Guide",
                           ),
                         ),

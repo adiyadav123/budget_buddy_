@@ -57,7 +57,7 @@ class _AboutUsViewState extends State<AboutUsView> {
               ],
             ),
             Image.asset(
-              "assets/img/ab_us.png",
+              "assets/img/about_us.png",
             ),
             const SizedBox(
               height: 10,

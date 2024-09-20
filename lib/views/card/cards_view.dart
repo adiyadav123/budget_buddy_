@@ -47,8 +47,7 @@ class _CardsViewState extends State<CardsView> {
 
   Widget buildSwiper() {
     return Swiper(
-      autoplay: true,
-      autoplayDelay: 3000,
+      loop: false,
       itemCount: carArr.length,
       customLayoutOption: CustomLayoutOption(startIndex: -1, stateCount: 3)
         ..addRotate([-45.0 / 180, 0.0, 45.0 / 180])
