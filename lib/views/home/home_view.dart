@@ -222,19 +222,48 @@ class _HomeViewState extends State<HomeView> {
                       var categories = categoryBox.get("categories") ?? [];
 
                       for (var catAr in categories) {
-                        if (catAr["name"] == "Entertainment" ||
-                            catAr["name"] == "Food & Drinks" ||
-                            catAr["name"] == "Security" ||
-                            catAr["name"] == "Medicine") {
+                        if (catAr["name"] == "Entertainment") {
                           catAr["total_budget"] =
-                              "${double.parse(budgetController.text) * 0.1}";
+                              (double.parse(budgetController.text) * 0.05)
+                                  .toStringAsFixed(1);
                           catAr["left_amount"] =
-                              "${double.parse(budgetController.text) * 0.1}";
+                              (double.parse(budgetController.text) * 0.05)
+                                  .toStringAsFixed(1);
+                        } else if (catAr["name"] == "Savings") {
+                          catAr["total_budget"] =
+                              (double.parse(budgetController.text) * 0.2)
+                                  .toStringAsFixed(1);
+                          catAr["left_amount"] =
+                              (double.parse(budgetController.text) * 0.2)
+                                  .toStringAsFixed(1);
+                        } else if (catAr["name"] == "Security") {
+                          catAr["total_budget"] =
+                              (double.parse(budgetController.text) * 0.1)
+                                  .toStringAsFixed(1);
+                          catAr["left_amount"] =
+                              (double.parse(budgetController.text) * 0.1)
+                                  .toStringAsFixed(1);
+                        } else if (catAr["name"] == "Food & Drinks") {
+                          catAr["total_budget"] =
+                              (double.parse(budgetController.text) * 0.1)
+                                  .toStringAsFixed(1);
+                          catAr["left_amount"] =
+                              (double.parse(budgetController.text) * 0.1)
+                                  .toStringAsFixed(1);
+                        } else if (catAr["name"] == "Groceries") {
+                          catAr["total_budget"] =
+                              (double.parse(budgetController.text) * 0.1)
+                                  .toStringAsFixed(1);
+                          catAr["left_amount"] =
+                              (double.parse(budgetController.text) * 0.1)
+                                  .toStringAsFixed(1);
                         } else if (catAr["name"] == "Others") {
                           catAr["total_budget"] =
-                              "${double.parse(budgetController.text) * 0.6}";
+                              (double.parse(budgetController.text) * 0.45)
+                                  .toStringAsFixed(1);
                           catAr["left_amount"] =
-                              "${double.parse(budgetController.text) * 0.6}";
+                              (double.parse(budgetController.text) * 0.45)
+                                  .toStringAsFixed(1);
                         }
                       }
 
