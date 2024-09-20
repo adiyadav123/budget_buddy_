@@ -307,6 +307,18 @@ class _SettingsViewState extends State<SettingsView> {
                             value: "Features",
                           ),
                         ),
+                        InkWell(
+                          onTap: () => {
+                            Get.to(() => KeyFeaturesView(),
+                                transition: Transition.rightToLeftWithFade,
+                                duration: const Duration(milliseconds: 500))
+                          },
+                          child: IconItemRow(
+                            title: "App Guide",
+                            icon: "assets/img/font.png",
+                            value: "Guide",
+                          ),
+                        ),
                       ],
                     ),
                   ),
