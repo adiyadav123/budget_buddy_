@@ -113,8 +113,7 @@ class NotificationService {
     await notificationsPlugin.initialize(initializationSettings);
     await checkNotificationPermission();
     await checkExactAlarmNotificationPermission();
-    await scheduleDailyNotification(); // Schedule daily notification at 6 AM
-    await scheduleNotificationEvery10Seconds(); // Start sending notifications every 10 seconds
+    await scheduleDailyNotification();
   }
 
   Future<void> scheduleDailyNotification() async {

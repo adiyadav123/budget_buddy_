@@ -188,7 +188,7 @@ class _ConfigPageState extends State<ConfigPage> {
                       ],
                     ),
                     SizedBox(
-                      height: media.height * 0.15,
+                      height: media.height * 0.1,
                     ),
                     PrimaryButton(
                         fontSize: 15,
@@ -231,7 +231,7 @@ class _ConfigPageState extends State<ConfigPage> {
         },
         {
           "name": "Savings",
-          "icon": "assets/img/medicine.png",
+          "icon": "assets/img/saving.png",
           "total_budget": (double.parse(budget) * 0.2).toStringAsFixed(1),
           "spend_amount": "0",
           "left_amount": "${double.parse(budget) * 0.2}",
@@ -255,7 +255,7 @@ class _ConfigPageState extends State<ConfigPage> {
         },
         {
           "name": "Groceries",
-          "icon": "assets/img/store.png",
+          "icon": "assets/img/groceries.png",
           "total_budget": (double.parse(budget) * 0.1).toStringAsFixed(1),
           "spend_amount": "0",
           "left_amount": (double.parse(budget) * 0.1).toStringAsFixed(1),
