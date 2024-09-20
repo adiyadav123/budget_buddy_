@@ -49,7 +49,7 @@ class NotificationService {
     var timeZone = tz.local;
     var scheduledTime = tz.TZDateTime.now(timeZone)
         .add(Duration(days: 1))
-        .copyWith(hour: 14, minute: 30, second: 0);
+        .copyWith(hour: 14, minute: 40, second: 0);
     await notificationsPlugin.zonedSchedule(
         0,
         'Daily Reminder',
