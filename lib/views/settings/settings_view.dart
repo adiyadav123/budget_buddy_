@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:budgetbuddy/local_notification.dart';
 import 'package:budgetbuddy/views/about/about_view.dart';
 import 'package:budgetbuddy/views/app_guide/app_guide_view.dart';
@@ -25,6 +27,30 @@ class SettingsView extends StatefulWidget {
 class _SettingsViewState extends State<SettingsView> {
   String name = "Aditya";
   String mail = "drakewasinnocent@minor.com";
+
+  final List<String> dailyTipsEnabledMessages = [
+    "Great news! Daily budgeting tips are now enabled! 📅💡",
+    "You've successfully enabled daily tips to boost your budgeting skills! 🚀💰",
+    "Daily tips notifications are on! Get ready for some awesome advice! 📲✨",
+    "Your daily budgeting tips are now at your fingertips! Stay tuned! 👌💵",
+    "Daily tips have been activated! Let’s make budgeting fun and easy! 🎉💡",
+    "You've opted in for daily tips! Get ready for financial wisdom every day! 📆💰",
+    "Daily budgeting tips are here! You're one step closer to financial success! 🏆💵",
+    "Congrats! Daily tips notifications are enabled for your budgeting journey! 🥳📊",
+    "Your daily tips are ready to roll! Enjoy new budgeting insights each day! 📈💰",
+    "Get ready! Daily budgeting tips are now enabled to help you save smarter! 💪💡",
+    "Daily tips are now part of your budgeting routine! Let’s get started! 🚀💵",
+    "You've enabled daily budgeting tips! Enjoy fresh insights every day! 🌟💰",
+    "Daily tips notifications are live! Elevate your budgeting game! 🆙💡",
+    "Welcome aboard! Daily tips for better budgeting are now active! 🙌📅",
+    "Your daily tips notifications are now on! Prepare for budgeting brilliance! 💖💰",
+    "Exciting news! Daily budgeting tips are enabled for you! Stay tuned! 🎊💵",
+    "You've activated daily tips! Get ready to enhance your financial knowledge! 📚💡",
+    "Daily tips notifications are now part of your routine! Let's budget smart! 🧠💰",
+    "You're all set! Daily budgeting tips will help you every day! 🗓️✨",
+    "Your budgeting journey just got better! Daily tips notifications are enabled! 🛤️💵",
+    "Daily tips are officially enabled! Enjoy your path to financial literacy! 🚶‍♂️💡",
+  ];
 
   void checkUser() async {
     var box = await Hive.openBox("user");
@@ -55,21 +81,23 @@ class _SettingsViewState extends State<SettingsView> {
   bool isSecurity = false;
 
   void checkNotificationPermission() async {
+    final random = Random();
+    var tips = dailyTipsEnabledMessages[
+        random.nextInt(dailyTipsEnabledMessages.length)];
+
     PermissionStatus status = await Permission.notification.status;
 
     if (status.isDenied || status.isPermanentlyDenied) {
       // Show custom dialog to explain the importance of notifications
       await Permission.notification.request().then((value) {
         if (value.isGranted) {
-          NotificationService().showNotification(
-              id: 0,
-              title: "Daily Tips",
-              body: "Check out the daily tips for you");
+          NotificationService()
+              .showNotification(id: 0, title: "Daily Tips", body: "$tips");
         }
       });
     } else if (status.isGranted) {
-      NotificationService().showNotification(
-          id: 0, title: "Daily Tips", body: "Check out the daily tips for you");
+      NotificationService()
+          .showNotification(id: 0, title: "Daily Tips", body: "$tips");
     }
   }
 
