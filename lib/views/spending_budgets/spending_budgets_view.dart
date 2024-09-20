@@ -31,10 +31,11 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
   double totalBudgetOthers = 0.0;
 
   double enterArc = 0.0;
-  double medArc = 0.0;
+  double saving = 0.0;
   double secArc = 0.0;
   double foodArc = 0.0;
   double otherArc = 0.0;
+  double groArc = 0.0;
 
   List<String> overspendingAdvices = [
     "Whoa! 😮 You've gone overboard in some areas. Let's scale back a little to avoid breaking the bank! 💸",
@@ -223,9 +224,9 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
               enterArc = (catTotalBudget / budget) * 165;
             });
             break;
-          case 'Medicine':
+          case 'Savings':
             setState(() {
-              medArc = (catTotalBudget / budget) * 165;
+              saving = (catTotalBudget / budget) * 165;
             });
             break;
           case 'Security':
@@ -241,6 +242,11 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
           case 'Others':
             setState(() {
               otherArc = (catTotalBudget / budget) * 165;
+            });
+            break;
+          case 'Groceries':
+            setState(() {
+              groArc = (catTotalBudget / budget) * 165;
             });
             break;
           default:
@@ -283,7 +289,7 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
       print("categories added");
     }
 
-    print("total arcs: ${enterArc + medArc + secArc + foodArc + otherArc}");
+    print("total arcs: ${enterArc + saving + secArc + foodArc + otherArc}");
   }
 
   String formatNumber(int num) {
@@ -340,9 +346,10 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
                       drwArcs: [
                         ArcValueModel(
                             color: TColor.secondaryG, value: enterArc),
-                        ArcValueModel(color: TColor.secondary, value: medArc),
+                        ArcValueModel(color: TColor.secondary, value: saving),
                         ArcValueModel(color: TColor.primary10, value: secArc),
                         ArcValueModel(color: Colors.yellow, value: foodArc),
+                        ArcValueModel(color: Colors.green, value: groArc),
                         ArcValueModel(color: Colors.blue, value: otherArc),
                       ],
                       end: 50,
