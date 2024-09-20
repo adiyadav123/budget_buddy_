@@ -32,6 +32,8 @@ class _SettingsViewState extends State<SettingsView> {
       isSecurity = box.get("security") ?? false;
       mail = box.get("email") ?? "drakewasinnocent@minor.com";
     });
+
+    print(box.get("security"));
   }
 
   void setDailyTips(isActive) async {
@@ -43,6 +45,7 @@ class _SettingsViewState extends State<SettingsView> {
 
   void setSecurity(isSecurity) async {
     var box = await Hive.openBox("user");
+    box.put("authenticated", false);
     box.put("security", isSecurity);
   }
 
@@ -217,11 +220,11 @@ class _SettingsViewState extends State<SettingsView> {
                               isTrue = newVal;
                             });
 
-                            LocalNotification.showSimpleNotification(
-                                body:
-                                    "Daily Tips are now ${newVal ? "enabled" : "disabled"}",
+                            NotificationService().showNotification(
+                                id: 0,
                                 title: "Daily Tips",
-                                payload: "dailyTips");
+                                body: "Check out today's tip",
+                                payLoad: "dailyTips");
 
                             setDailyTips(newVal);
                           },

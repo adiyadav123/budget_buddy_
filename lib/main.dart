@@ -18,7 +18,7 @@ void main() async {
   print("getting user");
   print(box.get('user'));
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await LocalNotification.init();
+  await NotificationService().initNotification();
   runApp(const MyApp());
 }
 

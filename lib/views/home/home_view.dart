@@ -29,7 +29,7 @@ class _HomeViewState extends State<HomeView> {
   late final LocalAuthentication auth;
   bool isSubscription = true;
   bool authenticated = false;
-  bool isSecurityEnabled = false;
+  bool isSecurityEnabled = true;
 
   List subArr = [];
 
@@ -87,8 +87,8 @@ class _HomeViewState extends State<HomeView> {
     ];
 
     setState(() {
+      isSecurityEnabled = isSec;
       subArr = subBox.get("arr") ?? [];
-      isSecurityEnabled = isSec ?? false;
     });
 
     if (box.get("budget") == null) {
@@ -146,9 +146,6 @@ class _HomeViewState extends State<HomeView> {
       graphPercent = 100 - percentSpent;
       valueForGraph = (270 * graphPercent) ~/ 100;
     });
-    print("Percent Spent: $percentSpent");
-    print("Graph Percent: $graphPercent");
-    print("Graph width: $valueForGraph");
 
     if (graphPercent <= 25) {
       Get.snackbar("Heads up!", "You have used 75% of your budget!",
@@ -210,8 +207,6 @@ class _HomeViewState extends State<HomeView> {
                           catAr["left_amount"] =
                               "${double.parse(budgetController.text) * 0.6}";
                         }
-
-                        print("Category: ${catAr["name"]}");
                       }
 
                       categoryBox.put("categories", categories);
@@ -242,19 +237,25 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void authenticate() async {
+    print("Authenticating");
+    print("Authenticated: $authenticated");
+    var usrBox = await Hive.openBox("user");
+    var at = usrBox.get("authenticated");
+    var isSec = usrBox.get("security");
+    setState(() {
+      isSecurityEnabled = isSec;
+    });
     try {
       if (isSecurityEnabled) {
-        if (authenticated == false) {
-          authenticated = await auth.authenticate(
+        if (at == false) {
+          await auth.authenticate(
               localizedReason: 'Please authenticate to show account balance',
               options: AuthenticationOptions(
                   stickyAuth: true, biometricOnly: false));
-          setState(() {
-            authenticated = authenticated;
-          });
+          usrBox.put("authenticated", true);
         }
       } else {
-        return;
+        usrBox.put("authenticated", true);
       }
     } on PlatformException catch (e) {
       return print(e);
@@ -264,9 +265,9 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
+    getBox();
     auth = LocalAuthentication();
     authenticate();
-    getBox();
   }
 
   @override
