@@ -1,3 +1,4 @@
+import 'package:budgetbuddy/local_notification.dart';
 import 'package:budgetbuddy/views/main_tab/main_tab_view.dart';
 import 'package:budgetbuddy/views/spending_budgets/spending_budgets_view.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../common_widget/custom_arc_painter.dart';
 import '../../common_widget/segment_button.dart';
@@ -162,6 +164,24 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
+  void checkNotificationPermission() async {
+    PermissionStatus status = await Permission.notification.status;
+
+    if (status.isDenied || status.isPermanentlyDenied) {
+      // Show custom dialog to explain the importance of notifications
+      await Permission.notification.request().then((value) {
+        if (value.isGranted) {
+          NotificationService().showNotification(
+              id: 0,
+              title: "Daily Tips",
+              body: "Check out the daily tips for you");
+        }
+      });
+    } else if (status.isGranted) {
+      print("Notification permission granted");
+    }
+  }
+
   void setBudgetCustom() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       showDialog(
@@ -284,6 +304,7 @@ class _HomeViewState extends State<HomeView> {
     getBox();
     auth = LocalAuthentication();
     authenticate();
+    checkNotificationPermission();
   }
 
   @override
