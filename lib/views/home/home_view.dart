@@ -35,37 +35,6 @@ class _HomeViewState extends State<HomeView> {
 
   List subArr = [];
 
-  List<String> budgetTips = [
-    "Click on the budget to easily adjust it according to your spending.",
-    "Plan your expenses ahead of time to stay within budget!",
-    "Use the app's analytics to track where you spend the most.",
-    "Save more by cutting down on unnecessary subscriptions.",
-    "Keep track of small expenses; they add up over time.",
-    "Set daily or weekly goals to help manage your budget more effectively.",
-    "Regularly update your budget as you spend to stay on top of your finances."
-  ];
-
-  void showRandomTip() {
-    var randomTip = (budgetTips..shuffle()).first; // Get a random tip
-    Get.defaultDialog(
-      title: "Budget Tip",
-      backgroundColor: TColor.gray70,
-      content: Text(
-        randomTip,
-        style: TextStyle(color: TColor.white),
-        textAlign: TextAlign.center,
-      ),
-      titleStyle: TextStyle(color: TColor.white),
-      textConfirm: "Okay",
-      confirmTextColor: TColor.white,
-      buttonColor: TColor.primary10,
-      onConfirm: () {
-        Get.back();
-      },
-      barrierDismissible: true,
-    );
-  }
-
   String formatNumber(int num) {
     if (num >= 10000000) {
       return '${(num / 10000000).toStringAsFixed(2)} Cr';
@@ -303,7 +272,6 @@ class _HomeViewState extends State<HomeView> {
     var at = usrBox.get("authenticated");
     var isSec = usrBox.get("security") ?? false;
     print("Is Security: $isSec");
-
     if (isSec != null) {
       setState(() {
         isSecurityEnabled = isSec;
