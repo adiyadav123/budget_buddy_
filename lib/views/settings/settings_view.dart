@@ -12,6 +12,7 @@ import 'package:hive_flutter/adapters.dart';
 import '../../common/color_extension.dart';
 import '../../common_widget/icon_item_row.dart';
 import 'package:url_launcher/url_launcher.dart';
+import "package:permission_handler/permission_handler.dart";
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -51,6 +52,18 @@ class _SettingsViewState extends State<SettingsView> {
 
   bool isTrue = false;
   bool isSecurity = false;
+
+  void checkNotificationPermission() async {
+    PermissionStatus status = await Permission.notification.status;
+
+    if (status.isDenied || status.isPermanentlyDenied) {
+      // Show custom dialog to explain the importance of notifications
+      await Permission.notification.request();
+    } else if (status.isGranted) {
+      NotificationService().showNotification(
+          id: 0, title: "Daily Tips", body: "Check out the daily tips for you");
+    }
+  }
 
   @override
   void initState() {
@@ -220,11 +233,7 @@ class _SettingsViewState extends State<SettingsView> {
                               isTrue = newVal;
                             });
 
-                            NotificationService().showNotification(
-                                id: 0,
-                                title: "Daily Tips",
-                                body: "Check out today's tip",
-                                payLoad: "dailyTips");
+                            if (newVal) {}
 
                             setDailyTips(newVal);
                           },

@@ -75,7 +75,7 @@ class _HomeViewState extends State<HomeView> {
   void getBox() async {
     var box = await Hive.openBox("user");
     var subBox = await Hive.openBox("subscription");
-    var isSec = box.get("security");
+    var isSec = box.get("security") ?? false;
     var highestBox = await Hive.openBox("highest");
     var lowestBox = await Hive.openBox("lowest");
     var totalSpentt = await Hive.openBox("totalSpent");
@@ -86,8 +86,17 @@ class _HomeViewState extends State<HomeView> {
       totalSpentt.get("totalSpent")
     ];
 
+    if (isSec != null) {
+      setState(() {
+        isSecurityEnabled = isSec;
+      });
+    } else {
+      setState(() {
+        isSecurityEnabled = false;
+      });
+    }
+
     setState(() {
-      isSecurityEnabled = isSec;
       subArr = subBox.get("arr") ?? [];
     });
 
@@ -241,10 +250,16 @@ class _HomeViewState extends State<HomeView> {
     print("Authenticated: $authenticated");
     var usrBox = await Hive.openBox("user");
     var at = usrBox.get("authenticated");
-    var isSec = usrBox.get("security");
-    setState(() {
-      isSecurityEnabled = isSec;
-    });
+    var isSec = usrBox.get("security") ?? false;
+    if (isSec != null) {
+      setState(() {
+        isSecurityEnabled = isSec;
+      });
+    } else {
+      setState(() {
+        isSecurityEnabled = false;
+      });
+    }
     try {
       if (isSecurityEnabled) {
         if (at == false) {
