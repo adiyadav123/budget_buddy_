@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="LLM" width="60%" alt="BUDGET_BUDDY_-logo">
+  <img src="./assets/img/app_logo.png" width="60%" alt="BUDGET_BUDDY_-logo">
 </p>
 <p align="center">
     <h1 align="center">BUDGET_BUDDY_</h1>
