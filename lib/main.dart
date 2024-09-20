@@ -22,12 +22,13 @@ void main() async {
   print(box.get('user'));
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  // Initialize notifications
+  // Initialize the NotificationService
   NotificationService notificationService = NotificationService();
   await notificationService.initNotification();
 
-  // Check notification permissions
-  runApp(MyApp(notificationService: notificationService));
+  // Run the app
+  runApp(MyApp(
+      notificationService: notificationService)); // Pass the instance here
 }
 
 class MyApp extends StatelessWidget {
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Check for notification permission (show a dialog if denied)
+    // Check for notification permission
     notificationService.checkNotificationPermission(context);
 
     return GetMaterialApp(
