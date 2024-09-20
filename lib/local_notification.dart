@@ -32,7 +32,7 @@ class NotificationService {
   Future<void> scheduleDailyNotification() async {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     tz.TZDateTime scheduledTime =
-        tz.TZDateTime(tz.local, now.year, now.month, now.day, 16, 0); // 4 PM
+        tz.TZDateTime(tz.local, now.year, now.month, now.day, 15, 43); // 4 PM
 
     if (scheduledTime.isBefore(now)) {
       scheduledTime = scheduledTime.add(const Duration(
