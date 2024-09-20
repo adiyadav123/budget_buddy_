@@ -25,7 +25,8 @@ class NotificationService {
 
     await notificationsPlugin.initialize(initializationSettings);
     await checkNotificationPermission();
-    await scheduleDailyNotification(); // Schedule the daily notification at 4 PM
+    await checkExactAlarmNotificationPermission();
+    await scheduleDailyNotification();
   }
 
   Future<void> scheduleDailyNotification() async {
@@ -89,6 +90,15 @@ class NotificationService {
 
   Future<void> checkNotificationPermission() async {
     final status = await Permission.notification.request();
+    if (status.isGranted) {
+      // Permission granted, proceed
+    } else if (status.isDenied) {
+      // Permission denied
+    }
+  }
+
+  Future<void> checkExactAlarmNotificationPermission() async {
+    final status = await Permission.scheduleExactAlarm.request();
     if (status.isGranted) {
       // Permission granted, proceed
     } else if (status.isDenied) {
