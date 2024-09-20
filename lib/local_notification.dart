@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -6,6 +7,7 @@ import 'package:timezone/timezone.dart' as tz;
 class NotificationService {
   final FlutterLocalNotificationsPlugin notificationsPlugin =
       FlutterLocalNotificationsPlugin();
+  Timer? _timer;
 
   Future<void> initNotification() async {
     AndroidInitializationSettings initializationSettingsAndroid =
@@ -22,17 +24,24 @@ class NotificationService {
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
 
     await notificationsPlugin.initialize(initializationSettings);
-    scheduleDailyNotification();
+    await checkNotificationPermission();
+    await scheduleDailyNotification(); // Schedule the daily notification at 4 PM
   }
 
   Future<void> scheduleDailyNotification() async {
-    final tz.TZDateTime scheduledTime = tz.TZDateTime.now(tz.local)
-        .add(Duration(seconds: 5)); // Test with a short delay
+    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    tz.TZDateTime scheduledTime =
+        tz.TZDateTime(tz.local, now.year, now.month, now.day, 16, 0); // 4 PM
+
+    if (scheduledTime.isBefore(now)) {
+      scheduledTime = scheduledTime.add(const Duration(
+          days: 1)); // Schedule for the next day if time has passed
+    }
 
     await notificationsPlugin.zonedSchedule(
       0,
-      'Test Notification Title',
-      'This is a test notification body.',
+      'Daily Reminder',
+      'This is your reminder notification.',
       scheduledTime,
       const NotificationDetails(
         android: AndroidNotificationDetails(
@@ -46,7 +55,18 @@ class NotificationService {
       androidScheduleMode: AndroidScheduleMode.exact,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents:
+          DateTimeComponents.time, // Ensures it repeats daily at the same time
     );
+  }
+
+  Future<void> scheduleNotificationEvery10Seconds() async {
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 10), (timer) async {
+      await showNotification(
+          title: 'Test Notification',
+          body: 'This notification shows every 10 seconds.');
+    });
   }
 
   Future<void> showNotification(
@@ -70,7 +90,7 @@ class NotificationService {
   Future<void> checkNotificationPermission() async {
     final status = await Permission.notification.request();
     if (status.isGranted) {
-      // Permission granted, you can proceed
+      // Permission granted, proceed
     } else if (status.isDenied) {
       // Permission denied
     }

@@ -1,3 +1,4 @@
+import 'package:budgetbuddy/common/color_extension.dart';
 import 'package:budgetbuddy/firebase_options.dart';
 import 'package:budgetbuddy/local_notification.dart';
 import 'package:budgetbuddy/views/login/welcome.dart';
@@ -7,15 +8,10 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
-import 'common/color_extension.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  var box = await Hive.openBox('user');
   tz.initializeTimeZones();
-  print("getting user");
-  print(box.get('user'));
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   NotificationService notificationService = NotificationService();
@@ -31,8 +27,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    notificationService.checkNotificationPermission();
-
     return GetMaterialApp(
       title: 'Budget Buddy',
       debugShowCheckedModeBanner: false,
