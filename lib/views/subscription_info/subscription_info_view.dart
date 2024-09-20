@@ -43,13 +43,40 @@ class _SubscriptionInfoViewState extends State<SubscriptionInfoView> {
       var totalSpent = await Hive.openBox("totalSpent");
 
       var subArr = subBox.get("arr");
+      var catBox = await Hive.openBox("categories");
+      var catArr = catBox.get("categories") ?? [];
       var totalSpentValue = totalSpent.get("totalSpent");
       double ts = double.parse(totalSpentValue.toString());
-      var itemPrice = widget.sObj["price"];
-      double finalTs = ts - double.parse(itemPrice.toString());
+
+      // Get the price and type (category) of the item being deleted
+      var itemPrice = double.parse(widget.sObj["price"].toString());
+      var itemCategory =
+          widget.sObj["type"]; // Assuming "type" is the category of the item
+
+      // Find the relevant category in subArr
+      for (var category in catArr) {
+        if (category["name"] == itemCategory) {
+          // Update the spend_amount and left_amount of the category
+          double currentSpent = double.parse(category["spend_amount"]);
+          double currentLeft = double.parse(category["left_amount"]);
+
+          // Subtract item price from spent and add back to left amount
+          category["spend_amount"] =
+              (currentSpent - itemPrice).toStringAsFixed(1);
+          category["left_amount"] =
+              (currentLeft + itemPrice).toStringAsFixed(1);
+          break;
+        }
+      }
+
+      // Update the total spent amount
+      double finalTs = ts - itemPrice;
       totalSpent.put("totalSpent", finalTs);
+
+      // Remove the item from subArr
       subArr.removeAt(widget.len);
-      subBox.put("arr", subArr);
+      subBox.put("arr", subArr); // Save updated subArr back into the box
+
       Get.snackbar("Deleted", "Deleted this transaction successfully!",
           colorText: TColor.white);
     }
