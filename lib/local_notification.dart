@@ -117,9 +117,12 @@ class NotificationService {
   }
 
   Future<void> scheduleDailyNotification() async {
+    print("scheduling notification");
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduledTime =
-        tz.TZDateTime(tz.local, now.year, now.month, now.day, 6, 0); // 6 AM
+    tz.TZDateTime scheduledTime = tz.TZDateTime(
+        tz.local, now.year, now.month, now.day, 0, 10); // 12:10 AM
+
+    print("scheduledTime: $scheduledTime");
 
     if (scheduledTime.isBefore(now)) {
       scheduledTime = scheduledTime.add(const Duration(
@@ -154,11 +157,10 @@ class NotificationService {
   }
 
   Future<void> scheduleNotificationEvery10Seconds() async {
+    print("sending notification");
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 10), (timer) async {
-      await showNotification(
-          title: 'Test Notification',
-          body: 'This notification shows every 10 seconds.');
+      await showNotification(title: 'Budget Advice', body: getRandomAdvice());
     });
   }
 

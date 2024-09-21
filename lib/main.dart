@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:workmanager/workmanager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +18,28 @@ void main() async {
   NotificationService notificationService = NotificationService();
   await notificationService.initNotification();
 
+  Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
+
+  Workmanager().registerPeriodicTask(
+    "1",
+    "tips_notifications",
+    frequency: const Duration(minutes: 15),
+  );
+
   runApp(MyApp(notificationService: notificationService));
+}
+
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    NotificationService notificationService = NotificationService();
+    await notificationService
+        .initNotification(); // Initialize within WorkManager context
+    await notificationService.showNotification(
+      title: 'Budget Advice',
+      body: notificationService.getRandomAdvice(),
+    );
+    return Future.value(true);
+  });
 }
 
 class MyApp extends StatelessWidget {
